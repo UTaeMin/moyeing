@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Random;
 
@@ -26,10 +27,19 @@ public class MemberService {
      */
     public MemberResponse.MemberInfoResponse createMemberInfo(List<MemberRequest.MemberInfoRequest> members) {
         log.info(":::저장 시작:::");
-        String teamKey = "Team:"+generateRandomString();
+
+        String teamKey;
+        do {
+            teamKey = "Team:" + generateRandomString();
+        } while (redisTemplate.hasKey(teamKey));
+
         for(MemberRequest.MemberInfoRequest val : members){
             redisTemplate.opsForList().rightPush(teamKey, val);
         }
+
+        redisTemplate.expire(teamKey, Duration.ofMinutes(30));
+
+
         log.info(":::저장 끝:::");
 
         return new MemberResponse.MemberInfoResponse(teamKey.substring(5));
