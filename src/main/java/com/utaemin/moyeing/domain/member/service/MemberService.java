@@ -1,6 +1,7 @@
 package com.utaemin.moyeing.domain.member.service;
 
 import com.utaemin.moyeing.domain.member.dto.MemberRequest;
+import com.utaemin.moyeing.domain.member.dto.MemberResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -14,25 +15,24 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class MemberService {
 
-    private final Integer randomLength = 5;
-
     private final RedisTemplate<String, Object> redisTemplate;
-
 
 
     /**
      * 입력된 사람들을 레디스에 저장
      *
      * @param members 리스트 형태로 저장된 인원들
+     * @return 소속 팀명 (구분을 위함)
      */
-    public void createMemberInfo(List<MemberRequest.MemberInfoRequest> members) {
+    public MemberResponse.MemberInfoResponse createMemberInfo(List<MemberRequest.MemberInfoRequest> members) {
         log.info(":::저장 시작:::");
         String teamKey = "Team:"+generateRandomString();
         for(MemberRequest.MemberInfoRequest val : members){
             redisTemplate.opsForList().rightPush(teamKey, val);
         }
-
         log.info(":::저장 끝:::");
+
+        return new MemberResponse.MemberInfoResponse(teamKey.substring(5));
     }
 
     private String generateRandomString() {
@@ -40,7 +40,8 @@ public class MemberService {
         Random random = new Random();
         StringBuilder result = new StringBuilder();
 
-        for (int i = 0; i < randomLength; i++) {
+        int len = 5;
+        for (int i = 0; i < len; i++) {
             int index = random.nextInt(characters.length());
             result.append(characters.charAt(index));
         }

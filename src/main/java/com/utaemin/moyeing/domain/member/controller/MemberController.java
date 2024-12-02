@@ -1,6 +1,7 @@
 package com.utaemin.moyeing.domain.member.controller;
 
 import com.utaemin.moyeing.domain.member.dto.MemberRequest;
+import com.utaemin.moyeing.domain.member.dto.MemberResponse;
 import com.utaemin.moyeing.domain.member.service.MemberService;
 import com.utaemin.moyeing.response.ApiResponse;
 import com.utaemin.moyeing.response.ApiResponseMemberEnum;
@@ -21,10 +22,10 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping
-    public ResponseEntity<ApiResponse<Void>> createMemberInfo(@RequestBody MemberRequest.MemberInfoListRequest MemberInfo){
+    public ResponseEntity<ApiResponse<MemberResponse.MemberInfoResponse>> createMemberInfo(@RequestBody MemberRequest.MemberInfoListRequest MemberInfo){
         List<MemberRequest.MemberInfoRequest> members = MemberInfo.members();
-        memberService.createMemberInfo(members);
-        return ApiResponse.of(ApiResponse.of(ApiResponseMemberEnum.MEMBER_CREATE_SUCCESS));
+        MemberResponse.MemberInfoResponse teamName = memberService.createMemberInfo(members);
+        return ApiResponse.of(ApiResponse.of(ApiResponseMemberEnum.MEMBER_CREATE_SUCCESS,teamName));
     }
 
 
