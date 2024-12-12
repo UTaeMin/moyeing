@@ -26,7 +26,7 @@ public class MemberService {
      * @return 소속 팀명 (구분을 위함)
      */
     public MemberResponse.MemberInfoResponse createMemberInfo(List<MemberRequest.MemberInfoRequest> members) {
-        log.info(":::저장 시작:::");
+        log.info(":::사람 정보 저장 시작:::");
 
         String teamKey;
         do {
@@ -40,7 +40,7 @@ public class MemberService {
         redisTemplate.expire(teamKey, Duration.ofMinutes(30));
 
 
-        log.info(":::저장 끝:::");
+        log.info(":::사람 정보 저장 끝:::");
 
         return new MemberResponse.MemberInfoResponse(teamKey.substring(5));
     }
