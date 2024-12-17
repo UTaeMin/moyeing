@@ -28,6 +28,10 @@ dependencies {
 
 	// Redis
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'com.squareup.okhttp3:okhttp:4.10.0' // HTTP 요청을 위한 라이브러리
+	implementation 'com.fasterxml.jackson.core:jackson-databind' // JSON 파싱
 }
 
 tasks.named('test') {

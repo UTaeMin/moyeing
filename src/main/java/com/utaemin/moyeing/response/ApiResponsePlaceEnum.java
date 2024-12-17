@@ -9,10 +9,9 @@ public enum ApiResponsePlaceEnum implements ApiResponseEnum {
     PLACE_SAVE_SUCCESS(HttpStatus.OK,"장소 등록에 성공하였습니다."),
 
     // 400
-    MEMBER_COUNT_WRONG(HttpStatus.BAD_REQUEST,"10명 이하만 가능합니다."),
+    MEMBER_COUNT_WRONG(HttpStatus.BAD_REQUEST,"10명 이하만 가능합니다.");
 
-    // 404
-    NOTICE_NOT_FOUND(HttpStatus.NOT_FOUND, "공지를 찾을 수 없습니다.");
+
 
     private final HttpStatus httpStatus;
     private final int code;

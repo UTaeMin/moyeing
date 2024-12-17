@@ -7,3 +7,10 @@ spring:
       port: ${REDIS_PORT}
       host: ${REDIS_HOST}
       password: ${REDIS_PASSWORD}
+      
+naver:
+  maps:
+    client-id: eem4tdvsnr
+    client-secret: Ybwl3XinSJJIrx1RZexPLZ5aza3ORxmCDSmc41Ca
+    directions-url: https://naveropenapi.apigw.ntruss.com/map-direction/v1
+    geocoding-url: https://naveropenapi.apigw.ntruss.com/map-geocode/v2
